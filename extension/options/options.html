@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>X AI 内容折叠 · 设置</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>X AI 内容折叠</h1>
+        <p class="lede">用 TypeSafe 的 Jev 模型判断 X 上的帖子和回复是否由 AI 生成，超过阈值的自动折叠。修改会自动保存。</p>
+      </header>
+
+      <section>
+        <h2>TypeSafe 连接</h2>
+        <div class="field">
+          <label class="name" for="apiKey">API Key</label>
+          <span class="row">
+            <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="在 console.typesafe.ai/keys 创建" />
+            <button id="toggleKey" type="button" class="ghost">显示</button>
+            <button id="testKey" type="button">测试连接</button>
+          </span>
+          <span id="keyStatus" class="hint" role="status"></span>
+        </div>
+
+        <label class="field">
+          <span class="name">模型</span>
+          <select id="model"></select>
+          <span class="hint">固定版本号能让阈值保持稳定；jev-latest 会随 TypeSafe 升级而变化。</span>
+        </label>
+      </section>
+
+      <section>
+        <h2>判定</h2>
+        <label class="field">
+          <span class="name">AI 概率阈值 <output id="thresholdValue"></output></span>
+          <input id="threshold" type="range" min="0.3" max="0.99" step="0.01" />
+          <span class="hint">Jev 返回 0–1 的概率。阈值越高，误折叠真人内容越少，但漏掉的 AI 内容越多。默认 0.60：实测随手写的真人内容不超过 0.15，产品公告、新闻快讯这类措辞正式的真人帖子最高到 0.53，AI 内容大多在 0.6 以上。</span>
+        </label>
+
+        <fieldset class="field">
+          <legend class="name">命中后</legend>
+          <label class="choice"><input type="radio" name="action" value="collapse" /> 折叠（可点“展开”查看）</label>
+          <label class="choice"><input type="radio" name="action" value="label" /> 只标注，不折叠</label>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="name">扫描范围</legend>
+          <label class="choice"><input id="scanPosts" type="checkbox" /> 帖子（首页时间线、个人主页、搜索结果，以及详情页的主帖）</label>
+          <label class="choice"><input id="scanReplies" type="checkbox" /> 帖子详情页里的回复</label>
+        </fieldset>
+
+        <label class="field">
+          <span class="name">最短字数</span>
+          <input id="minLength" type="number" min="0" max="500" step="1" class="narrow" />
+          <span class="hint">短于这个长度的内容信息太少，直接跳过，不调用 API。</span>
+        </label>
+
+        <label class="field">
+          <span class="name">白名单</span>
+          <textarea id="whitelist" rows="4" spellcheck="false" placeholder="@elonmusk&#10;@openai"></textarea>
+          <span class="hint">每行一个账号，这些账号的内容不检测。</span>
+        </label>
+      </section>
+
+      <section>
+        <h2>高级</h2>
+        <fieldset class="field">
+          <legend class="name">诊断</legend>
+          <label class="choice"><input id="showScores" type="checkbox" /> 在每条内容上方显示检测分数，以及没检测的原因</label>
+          <span class="hint">用来校准阈值，或排查“为什么这条没被折叠”。</span>
+        </fieldset>
+
+        <div class="field">
+          <label class="name" for="apiBase">API 地址</label>
+          <span class="row">
+            <input id="apiBase" type="url" spellcheck="false" />
+            <button id="saveBase" type="button">保存并授权</button>
+          </span>
+          <span id="baseStatus" class="hint">一般不用改。走自建代理时填写代理地址，Chrome 会请求访问该域名的权限。</span>
+        </div>
+
+        <div class="field">
+          <span class="name">结果缓存</span>
+          <span class="row">
+            <button id="clearCache" type="button" class="ghost">清除缓存</button>
+            <span id="cacheStatus" class="hint"></span>
+          </span>
+          <span class="hint">每条帖子只会请求一次，结果按“模型 + 帖子 ID”缓存在本地。</span>
+        </div>
+      </section>
+
+      <p class="note">帖子文本（回复会附带被回复的原帖）会发送到 TypeSafe 进行判断。AI 检测存在误判，被折叠的内容随时可以展开。</p>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="../src/settings.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

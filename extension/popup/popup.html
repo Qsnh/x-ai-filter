@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <span class="title">X AI 内容折叠</span>
+      <label class="switch" title="启用 / 停用">
+        <input id="enabled" type="checkbox" />
+        <span class="track" aria-hidden="true"></span>
+        <span class="sr">启用</span>
+      </label>
+    </header>
+
+    <p id="notice" class="notice" hidden></p>
+
+    <dl class="stats">
+      <div><dt>本页已检测</dt><dd id="checked">–</dd></div>
+      <div><dt>判定为 AI</dt><dd id="flagged" class="accent">–</dd></div>
+      <div><dt>检测中</dt><dd id="pending">–</dd></div>
+    </dl>
+
+    <p id="session" class="meta"></p>
+
+    <footer>
+      <span id="model" class="meta"></span>
+      <button id="openOptions" type="button">设置</button>
+    </footer>
+
+    <script src="../src/settings.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

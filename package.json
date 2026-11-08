@@ -1,0 +1,16 @@
+{
+  "name": "x-ai-filter",
+  "private": true,
+  "version": "0.3.0",
+  "description": "Chrome extension that collapses AI-written posts and replies on X, using TypeSafe Jev.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/unit.test.mjs",
+    "test:e2e": "node --test tests/e2e.test.mjs",
+    "package": "cd extension && zip -qr ../x-ai-filter.zip . -x '.*'",
+    "eval:live": "node tests/live-eval.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.55.0"
+  }
+}

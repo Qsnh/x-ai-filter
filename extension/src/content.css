@@ -1,0 +1,104 @@
+article[data-aidf-collapsed="1"] {
+  display: none !important;
+}
+
+.aidf-bar {
+  --aidf-fg: rgb(83, 100, 113);
+  --aidf-strong: rgb(15, 20, 25);
+  --aidf-bg: rgba(15, 20, 25, 0.035);
+  --aidf-line: rgb(239, 243, 244);
+  --aidf-button-line: rgb(207, 217, 222);
+  --aidf-accent: rgb(201, 54, 90);
+  --aidf-accent-bg: rgba(201, 54, 90, 0.1);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 16px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--aidf-line);
+  background: var(--aidf-bg);
+  color: var(--aidf-fg);
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  cursor: default;
+}
+
+[data-aidf-theme="dark"] .aidf-bar {
+  --aidf-fg: rgb(139, 152, 165);
+  --aidf-strong: rgb(231, 233, 234);
+  --aidf-bg: rgba(255, 255, 255, 0.03);
+  --aidf-line: rgb(47, 51, 54);
+  --aidf-button-line: rgb(83, 100, 113);
+  --aidf-accent: rgb(249, 128, 160);
+  --aidf-accent-bg: rgba(249, 128, 160, 0.12);
+}
+
+.aidf-bar[data-variant="info"] {
+  min-height: 28px;
+  padding: 4px 16px;
+  font-size: 12px;
+}
+
+.aidf-bar[data-variant="info"] .aidf-badge {
+  background: var(--aidf-bg);
+  color: var(--aidf-fg);
+}
+
+.aidf-bar[data-variant="info"] .aidf-score {
+  color: var(--aidf-fg);
+}
+
+.aidf-bar[data-collapsed="0"] {
+  min-height: 32px;
+  border-bottom: none;
+  background: transparent;
+}
+
+.aidf-badge {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--aidf-accent-bg);
+  color: var(--aidf-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.aidf-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.aidf-score {
+  flex: none;
+  color: var(--aidf-accent);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.aidf-toggle {
+  flex: none;
+  padding: 4px 12px;
+  border: 1px solid var(--aidf-button-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--aidf-strong);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.aidf-toggle:hover {
+  background: var(--aidf-bg);
+}
+
+.aidf-toggle:focus-visible {
+  outline: 2px solid var(--aidf-accent);
+  outline-offset: 2px;
+}
